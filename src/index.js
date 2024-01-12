@@ -1,11 +1,21 @@
-import p5 from "p5";
-import math from "math";
+import * as p5 from "p5";
+import "p5/lib/addons/p5.sound.js";
+import Math from "math.js";
+// import p5sound from "../node_modules/p5/lib/addons/p5.sound.js";
+// import webpack from "webpack";
+// plugins:[
+// new webpack.ProvidePlugin({
+//     p5: 'p5',
 
+// })
+// ]
+
+
+let count = 0
 document.body.style.margin = "0";
-
 export const sketch = (p) => {
 
-  function normtr(x, y, r, ud) {
+  function normal(x, y, r, ud) {
     p.triangle(x, y, x + r, y, x + r / 2, y + ud * r * 3 ** (0.5) / 2)
   }
 
@@ -13,24 +23,34 @@ export const sketch = (p) => {
 
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.background(255);
-    x=100;
-    y=100;
-
+    // p.ellipse(100, 100, 100, 100);
+    let x = 100;
+    let y = 100;
+    const osc = new Oscillator('sawtooth');
+    // osc.start()
   }
 
   p.draw = () => {
     if (p.mouseIsPressed) {
-      p.fill(0);
-      // console.log(p.mouseIsPressed())
+      p.fill(255);
+      // console.log(p.mouseIsPressed());
+      if (count === 100) {
+        p.clear();
+        count = 0;
+      } else {
+        count += 1;
+        console.log(count);
+        // }
+      }
+      p.ellipse(p.windowWidth * Math.random(), p.windowHeight * Math.random(), 80, 80);
     } else {
       p.fill(255);
       // console.log(p.mouseIsPressed())
-      console.log(p.mouseY)
+      console.log(Math.random())
     }
-    p.ellipse(p.mouseX, p.mouseY, 80, 80);
     // p.triangle(p.mouseX, p.mouseY, p.mouseX+300, p.mouseY, p.mouseX+300/2, p.mouseY+300*1.7/2)
-    normtr(p.mouseX, p.mouseY, 300, -1);
+    normal(p.mouseX, p.mouseY, 300, -1);
   }
 }
 
-const app = new p5(sketch, document.body)
+const app = new p5(sketch, document.body);
