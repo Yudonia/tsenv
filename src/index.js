@@ -26,8 +26,12 @@ export const sketch = (p) => {
     // p.ellipse(100, 100, 100, 100);
     let x = 100;
     let y = 100;
-    const osc = new Oscillator('sawtooth');
-    // osc.start()
+    const osc = new p5.Oscillator('sawtooth');
+    osc.start();
+    osc.stop(0.05);
+    // p.play(osc,10,5);
+    // const osd = new p5.Oscillator('sine');
+    // osd.start()
   }
 
   p.draw = () => {
@@ -37,12 +41,20 @@ export const sketch = (p) => {
       if (count === 100) {
         p.clear();
         count = 0;
+
       } else {
         count += 1;
         console.log(count);
         // }
       }
-      p.ellipse(p.windowWidth * Math.random(), p.windowHeight * Math.random(), 80, 80);
+      let xo=Math.random();
+      let yo=Math.random();
+      p.ellipse(p.windowWidth * xo, p.windowHeight * yo, 80, 80);
+    const osc = new p5.Oscillator('sawtooth');
+      osc.pan(xo*1.8-0.9);
+      osc.freq(yo*2200+200);
+      osc.start();
+      osc.stop(0.05);
     } else {
       p.fill(255);
       // console.log(p.mouseIsPressed())
